@@ -78,7 +78,7 @@ public class StreamAppProblems {
         return employees;
     }
 
-    public static Map<Character,Integer> convertCounting(){
+    public static Map<Character, Integer> convertCounting() {
         List<String> stringList = List.of("Stream", "Java", "Programming", "Awsome");
         Map<Character, Integer> characterToCount = stringList.stream()
                 // 1. Flatten all strings into a stream of characters
@@ -90,6 +90,7 @@ public class StreamAppProblems {
                 ));
         return characterToCount;
     }
+
     public static List<String> subsequence() {
         //List<String> stringList = List.of("Stream","Java");
         String str = "abc";
@@ -102,11 +103,18 @@ public class StreamAppProblems {
         return subsequences;
     }
 
-    public static List<Character> filterCharacter(){
+    public static List<Character> filterCharacter() {
         List<Character> characters = List.of(
-                'a','b','c');
+                'a', 'b', 'c');
+        return characters.stream().filter(c -> c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u').collect(Collectors.toList());
+    }
 
-       return characters.stream().filter(c->c=='a'||c=='e'||c=='i'||c=='o'||c=='u').collect(Collectors.toList());
+    public static List<String> reduceExample() {
+        List<String> data = List.of("Stream", "Java", "Programming", "Awsome");
+        List<String> data2 = List.of("Amit", "Kulkarni");
+        // List<List<String>> values = List.of(data,data2);
+        //  return values.stream().reduce(x->x.stream().filter(x->x.length()%2==0)).collect(Collectors.toList());
+        return data2;
     }
 
     public static void main(String[] args) {
@@ -114,8 +122,12 @@ public class StreamAppProblems {
         streamAppProblems.filterEmployees();
         Comparator<Employee> empComparingByName = (Employee obj1, Employee obj2) -> obj1.getName().compareTo(obj2.getName());
         Map<Integer, Employee> reversMap = populateEmployeeMap().
-                entrySet().stream().sorted(Map.Entry.comparingByValue(empComparingByName))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+                entrySet().stream().
+                sorted(Map.Entry.comparingByValue(empComparingByName))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)
+                        -> e1, LinkedHashMap::new));
+        System.out.println(populateEmployeeMap());
+        System.out.println("Reverse Map " + reversMap);
         System.out.println(streamAppProblems.minSalaryEmployee());
         System.out.println(streamAppProblems.removeDuplicateIfAny());
         System.out.println(wordWithMostvowel());
@@ -124,5 +136,11 @@ public class StreamAppProblems {
         System.out.println(subsequence());
         System.out.println(convertCounting());
         System.out.println(filterCharacter());
+        System.out.println(reduceExample());
+        List<Employee> data = populateEmployee();
+        System.out.println(data.stream().map(e -> e.getSalary()).reduce(Double.valueOf(0), (a, b) -> a + b));
+        List<Integer> test = List.of(1,1,6, 2, 3, 7, 4,2, 5);
+        System.out.println(test.stream().distinct().sorted().collect(Collectors.toList()));
+        
     }
 }
