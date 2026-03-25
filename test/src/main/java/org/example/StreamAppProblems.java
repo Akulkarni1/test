@@ -149,6 +149,5 @@ public class StreamAppProblems {
                 .filter(c -> !String.valueOf(c).matches(vowelsRegex)) // 3. Filter out vowels
                 .map(String::valueOf)                         // 4. Map Characters back to Strings
                 .collect(Collectors.joining());
-
     }
 }
