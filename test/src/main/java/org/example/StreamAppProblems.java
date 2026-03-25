@@ -140,6 +140,21 @@ public class StreamAppProblems {
         List<Integer> test = List.of(1,1,6, 2, 3, 7, 4,2, 5);
         System.out.println(test.stream().distinct().sorted().collect(Collectors.toList()));
         System.out.println("Removed vowels:"+removedVowels("Hello Word Mth"));
+        System.out.println("alternating elements using Streams: "+alterList());
+    }
+
+    private static List<Integer> alterList() {
+        List<Integer> list1 = Arrays.asList(1, 3, 5, 7);
+        List<Integer> list2 = Arrays.asList(2, 4, 6, 8);
+
+            if(list1.size()!=list2.size())
+                throw new IllegalArgumentException("List should must be equal in size");
+
+            List<Integer> lst=IntStream.range(0, list1.size())
+                    .mapToObj(i->Arrays.asList(list1.get(i), list2.get(i)))
+                    .flatMap(List::stream).collect( Collectors.toList());
+            return lst;
+
     }
 
     private static String removedVowels(String input) {
