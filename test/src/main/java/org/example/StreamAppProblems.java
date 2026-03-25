@@ -112,8 +112,6 @@ public class StreamAppProblems {
     public static List<String> reduceExample() {
         List<String> data = List.of("Stream", "Java", "Programming", "Awsome");
         List<String> data2 = List.of("Amit", "Kulkarni");
-        // List<List<String>> values = List.of(data,data2);
-        //  return values.stream().reduce(x->x.stream().filter(x->x.length()%2==0)).collect(Collectors.toList());
         return data2;
     }
 
@@ -141,6 +139,16 @@ public class StreamAppProblems {
         System.out.println(data.stream().map(e -> e.getSalary()).reduce(Double.valueOf(0), (a, b) -> a + b));
         List<Integer> test = List.of(1,1,6, 2, 3, 7, 4,2, 5);
         System.out.println(test.stream().distinct().sorted().collect(Collectors.toList()));
-        
+        System.out.println("Removed vowels:"+removedVowels("Hello Word Mth"));
+    }
+
+    private static String removedVowels(String input) {
+        String vowelsRegex = "[AEIOUaeiou]";
+        return IntStream.range(0, input.length()) // 1. Get an IntStream of indices
+                .mapToObj(input::charAt)                      // 2. Map indices to Character objects
+                .filter(c -> !String.valueOf(c).matches(vowelsRegex)) // 3. Filter out vowels
+                .map(String::valueOf)                         // 4. Map Characters back to Strings
+                .collect(Collectors.joining());
+
     }
 }

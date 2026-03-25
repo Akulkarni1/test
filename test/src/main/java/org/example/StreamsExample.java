@@ -12,8 +12,6 @@ public class StreamsExample {
         Set <Integer>duplicateElemenets= new HashSet();
         List elements=list.stream().filter(x->!duplicateElemenets.add(x)).collect(Collectors.toList());
         System.out.println(elements);
-
-
     }
 
     private static int[] fillArr(int n) {
