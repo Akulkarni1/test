@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ class MergeSortStream{
         return result;
     }
 }
+
 class QuickSortWithoutStream{
     private int partition(List<Integer> list, int low, int high){
         int pivot = list.get(high);
@@ -58,10 +60,28 @@ class QuickSortWithoutStream{
         }
     }
 }
-//class MergeSortWithoutStream{
-//    private int partition(List<Integer> list, int low, int high){
-//
-//    }
-//}
+class MergeSortWithoutStream{
+    void mergeSort(List<Integer> list){
+        if(list.size()<2){return;}
+        int mid=list.size()/2;
+        List<Integer> left= new ArrayList<>(list.subList(0,mid));
+        List<Integer> right= new ArrayList<>(list.subList(mid+1,list.size()));
+        mergeSort(left);
+        mergeSort(right);
+        merge(left,right,list);
+    }
+
+    private void merge(List<Integer> left, List<Integer> right, List<Integer> result) {
+        int i=0, j=0, k=0;
+        while (i<left.size() && j<right.size()){
+            if(left.get(i)<=right.get(j)){
+                result.set(k++,left.get(i++));
+            }else result.set(k++,right.get(j++));
+        }
+        while(i<left.size()){result.set(k++,left.get(i++));}
+        while(j<right.size()){result.set(k++,right.get(j++));}
+    }
+
+}
 public class SortingApp {
 }
