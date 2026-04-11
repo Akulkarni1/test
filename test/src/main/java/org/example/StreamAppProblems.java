@@ -115,6 +115,34 @@ public class StreamAppProblems {
         return data2;
     }
 
+    public static List<Integer> getCommonElements(List<Integer> list1,List<Integer> list2){
+     return list1.stream()
+             .filter(list2::contains)
+             .collect(Collectors.toList());
+        // return list1.stream().filter(e->!list2.contains(e)).collect(Collectors.toList());
+    }
+    public static List<Integer> removeElements() {
+        Integer[] array = {21, 10, 20, 10, 30, 50, 20, 60, 19, 20, 19, 20, 20, 70, 80, 20, 90};
+
+        // Step 1: Find the element that occurred the most number of times
+        Map.Entry<Integer, Long> mostCommonEntry = Arrays.stream(array)
+                .collect(Collectors.groupingBy(e -> e, Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .orElseThrow();
+
+        int mostCommonElement = mostCommonEntry.getKey();
+
+        // Step 2: Remove the immediate left and right elements of the most common element
+        List<Integer> result = Arrays.stream(array)
+                .filter(e -> !(e == mostCommonElement || e == mostCommonElement - 1 || e == mostCommonElement + 1))
+                .collect(Collectors.toList());
+
+        System.out.println("Most common element: " + mostCommonElement);
+        System.out.println("Resulting array after removing immediate left and right elements: " + result);
+        return result;
+    }
+
     public static void main(String[] args) {
         StreamAppProblems streamAppProblems = new StreamAppProblems();
         streamAppProblems.filterEmployees();
@@ -141,6 +169,8 @@ public class StreamAppProblems {
         System.out.println(test.stream().distinct().sorted().collect(Collectors.toList()));
         System.out.println("Removed vowels:"+removedVowels("Hello Word Mth"));
         System.out.println("alternating elements using Streams: "+alterList());
+        System.out.println(getCommonElements(List.of(1,2,3,5,6),List.of(6,1,3,4)));
+        System.out.println(removeElements());
     }
 
     private static List<Integer> alterList() {
@@ -154,7 +184,6 @@ public class StreamAppProblems {
                     .mapToObj(i->Arrays.asList(list1.get(i), list2.get(i)))
                     .flatMap(List::stream).collect( Collectors.toList());
             return lst;
-
     }
 
     private static String removedVowels(String input) {

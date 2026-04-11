@@ -22,4 +22,9 @@ public class StreamsExample {
         }
     return arr;
     }
+//    public List<Integer> reverse(){
+//        List<Integer> list= List.of(2,3,4,5,7,6,8);
+//        int count = Math.toIntExact(list.stream().count());
+//        list.get(count/2);
+//    }
 }
