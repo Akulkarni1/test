@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class StackImpl {
@@ -7,7 +8,17 @@ public class StackImpl {
         //Stack<Character> stack = new Stack<>();
         String s ="()(()";
         int count = getCount(s);
+        int []arr = {1,2,3};
+        roateArray(arr,2);
         System.out.println(count*2);
+    }
+    public static void roateArray(int[]arr,int count){
+        for(int i=0;i<count;i++){
+            int temp=arr[0];
+            arr[0]=arr[arr.length-1];
+            arr[arr.length-1]=temp;
+        }
+        System.out.println(Arrays.toString(arr));
     }
 
     private static int getCount(String s) {
